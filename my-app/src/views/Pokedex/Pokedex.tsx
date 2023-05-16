@@ -1,56 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { constants } from "../../constants/constants";
+import { getPokemonList, getPokemonDescription } from "./pokedexService";
 
-const { PREVIOUS, NEXT } = constants;
+const { PREVIOUS, NEXT, INITIAL_URL } = constants;
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [cursor, setCursor] = useState({
-    next: undefined,
-    prev: undefined,
+  const [url, setURL] = useState({
+    next: "",
+    previous: "",
   });
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
 
-  const handleClick = (type) => {
+  const handleClick = (type: string) => {
     switch (type) {
-      case type === PREVIOUS:
-        return onGetPokemonsData(cursor.previous);
-      case type === NEXT:
-        return onGetPokemonsData(cursor.next);
+      case PREVIOUS:
+        return onGetPokemonsData(url.previous);
+      case NEXT:
+        return onGetPokemonsData(url.next);
     }
   };
 
   useEffect(() => {
-    onGetPokemonsData(undefined, false);
+    onGetPokemonsData(INITIAL_URL);
   }, []);
 
-  const getPokemonsData = (cursor) => {
-    //need:
-    //count, previous, next, results --> cursor stores the link to previous and next
-    return fetch(`https://pokeapi.co/api/v2/${cursor}`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json, text/*",
-      },
-    }).then((response) => response.json());
-  };
-
-  const onGetPokemonsData = async (cursor, refresh) => {
+  const onGetPokemonsData = async (url: string) => {
     try {
-      let poke = await getPokemonsData(cursor);
-      if (refresh) {
-        setPokemons(poke.data);
-      } else {
-        setPokemons((oldArray) => [...oldArray, ...poke.data]);
-      }
-      setCursor({
+      let poke = await getPokemonList(url);
+      console.log("poke: ", poke);
+      setPokemons(poke);
+      setURL({
         next: poke.next,
-        prev: poke.previous,
+        previous: poke.previous,
       });
       setCount(poke.count);
     } catch (e) {
@@ -82,8 +67,10 @@ const Pokedex = () => {
             */}
           </div>
           <div className="poke__buttons">
-            <button onClick={handleClick(PREVIOUS)}>{PREVIOUS}</button>
-            <button onClick={handleClick(NEXT)}>{NEXT}</button>
+            <button onClick={(e: any) => handleClick(PREVIOUS)}>
+              {PREVIOUS}
+            </button>
+            <button onClick={(e: any) => handleClick(NEXT)}>{NEXT}</button>
           </div>
         </>
       )}
