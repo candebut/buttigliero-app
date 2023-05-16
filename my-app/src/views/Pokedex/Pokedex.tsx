@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { constants } from "../../constants/constants";
 import { getPokemonList, getPokemonDescription } from "./pokedexService";
+import { Button, Table } from "../../components";
 
 const { PREVIOUS, NEXT, INITIAL_URL } = constants;
 
@@ -32,7 +33,7 @@ const Pokedex = () => {
     try {
       let poke = await getPokemonList(url);
       console.log("poke: ", poke);
-      setPokemons(poke);
+      setPokemons(poke.results);
       setURL({
         next: poke.next,
         previous: poke.previous,
@@ -62,15 +63,23 @@ const Pokedex = () => {
           ) : null}
 
           <div className="poke__table">
+            <Table headers={["name", "id"]} data={pokemons}></Table>
             {/* when clicking in element, setSelectedPokemon 
             setLoading to true until the pokemon info is loaded
             */}
           </div>
           <div className="poke__buttons">
-            <button onClick={(e: any) => handleClick(PREVIOUS)}>
-              {PREVIOUS}
-            </button>
-            <button onClick={(e: any) => handleClick(NEXT)}>{NEXT}</button>
+            <Button
+              variant="primary"
+              onClick={(e: any) => handleClick(PREVIOUS)}
+              label={PREVIOUS}
+            />
+
+            <Button
+              variant="secundary"
+              onClick={(e: any) => handleClick(NEXT)}
+              label={NEXT}
+            />
           </div>
         </>
       )}
