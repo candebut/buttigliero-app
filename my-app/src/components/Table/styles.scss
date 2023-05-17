@@ -1,0 +1,36 @@
+.genericTableContainer {
+  margin: 30px 10%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.genericTableBody {
+  flex-grow: 1;
+}
+
+.genericTableRow {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #555;
+}
+
+.genericTableRow:last-child {
+  border-bottom: 0;
+}
+
+.genericTableHeader > .genericTableRow {
+  border-bottom: 1px solid #555;
+  background-color: aquamarine;
+}
+
+.genericTableCell {
+  padding: 10px;
+  text-align: center;
+  transition: 500ms background-color;
+}
+
+.genericTableCell:hover {
+  background-color: #333;
+  color: white;
+}

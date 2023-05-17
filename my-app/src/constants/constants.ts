@@ -11,7 +11,6 @@ export const POKEMON_LABELS = {
     HEIGHT: 'Height',
     SPECIE: "Specie",
     TYPE: 'Type', 
-    ERROR_MESSAGE: "Error while fetching Pokemon description",
 }
 
 export const FETCH_MESSAGES = {

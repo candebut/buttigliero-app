@@ -1,4 +1,6 @@
-import styles from "./generic-table.module.css";
+//import styles from "./generic-table.module.css";
+import "./styles.scss";
+// import "../scss/FileName.scss";
 
 export type TableElement = {};
 
@@ -25,26 +27,26 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
   );
   const widthOf = (c: TableColumn<T>) => ((c.width || 1) / sumWidth) * 100;
   return (
-    <div className={styles.genericTableContainer}>
-      <div className={styles.genericTableHeader}>
-        <div className={styles.genericTableRow}>
+    <div className="genericTableContainer">
+      <div className="genericTableHeader">
+        <div className="genericTableRow">
           {model.columns.map((c, index) => (
             <div
               key={`key-column-${index}`}
-              className={styles.genericTableCell}
+              className="genericTableCell"
               style={{ width: `${widthOf(c)}%` }}
             >
-              <span className={styles.genericTableCellText}>{c.title}</span>
+              <span className="genericTableCellText">{c.title}</span>
             </div>
           ))}
         </div>
       </div>
-      <div className={styles.genericTableBody}>
+      <div className="genericTableBody">
         {elements.map((e, index) => (
-          <div className={styles.genericTableRow} key={`key-element-${index}`}>
+          <div className="genericTableRow" key={`key-element-${index}`}>
             {model.columns.map((c, index) => (
               <div
-                className={styles.genericTableCell}
+                className="genericTableCell"
                 style={{ width: `${widthOf(c)}%` }}
                 key={`key-element-column-${index}`}
               >

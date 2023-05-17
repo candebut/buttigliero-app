@@ -9,7 +9,7 @@ import { Button, Table, Loader } from "../../components";
 import { TableModel } from "../../components/Table/Table";
 
 const { PREVIOUS, NEXT, INITIAL_URL, NAME } = CONSTANTS;
-const { ABILITIES, HEIGHT, SPECIE, TYPE, ERROR_MESSAGE } = POKEMON_LABELS;
+const { ABILITIES, HEIGHT, SPECIE, TYPE } = POKEMON_LABELS;
 const { GENERAL_MESSAGE } = FETCH_MESSAGES;
 
 const Pokedex = () => {
@@ -156,7 +156,7 @@ const Pokedex = () => {
       {initialLoading ? (
         <Loader />
       ) : error ? (
-        <p>{ERROR_MESSAGE}</p>
+        <p>{GENERAL_MESSAGE}</p>
       ) : (
         <>
           {pokemonData && selectedPokemon.name ? (

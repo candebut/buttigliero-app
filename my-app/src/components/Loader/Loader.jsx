@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import styles from "./generic-loader.module.css";
+import './loader.scss';
 
 function Loader({ size = 'm', overlaid = false, ...rest }) {
     return (
-        <div className={styles.loaderWrapper}>
-            <div className={styles.loaderComponent}>Loading...</div>
+        <div className="loaderWrapper">
+            <div className="loaderComponent">Loading...</div>
         </div>
     );
 }
