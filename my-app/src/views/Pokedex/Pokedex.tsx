@@ -17,6 +17,8 @@ const Pokedex = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
 
+  console.log("selectedPokemon: ", selectedPokemon);
+
   type MyElement = {
     name: string;
     url: string;
@@ -28,7 +30,9 @@ const Pokedex = () => {
     columns: [
       {
         title: "Name",
-        html: (e: any) => <span>{e.name}</span>,
+        html: (e: any) => (
+          <span onClick={() => setSelectedPokemon(e)}>{e.name}</span>
+        ),
       },
     ],
   };

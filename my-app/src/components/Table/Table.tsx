@@ -6,6 +6,7 @@ export type TableColumn<T extends TableElement> = {
   title: string;
   html: (e: T) => JSX.Element;
   width?: number;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type TableModel<T extends TableElement> = {
