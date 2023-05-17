@@ -9,7 +9,7 @@ import { Button, Table, Loader } from "../../components";
 import { TableModel } from "../../components/Table/Table";
 import "./pokedex.scss";
 
-const { PREVIOUS, NEXT, INITIAL_URL, NAME, LOADING } = CONSTANTS;
+const { PREVIOUS, NEXT, INITIAL_URL, NAME, LOADING, IMAGE } = CONSTANTS;
 const { ABILITIES, HEIGHT, SPECIE, TYPE } = POKEMON_LABELS;
 const { GENERAL_MESSAGE } = FETCH_MESSAGES;
 
@@ -108,6 +108,12 @@ const Pokedex = () => {
         title: TYPE,
         html: (e: any) => (
           <span>{e.types.map((type: any) => type.type.name + " ")}</span>
+        ),
+      },
+      {
+        title: IMAGE,
+        html: (e: any) => (
+          <span>{<img src={e.sprites.front_default} alt="MDN"></img>}</span>
         ),
       },
     ],
