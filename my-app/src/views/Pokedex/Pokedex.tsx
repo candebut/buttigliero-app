@@ -9,7 +9,7 @@ import { Button, Table, Loader } from "../../components";
 import { TableModel } from "../../components/Table/Table";
 import "./pokedex.scss";
 
-const { PREVIOUS, NEXT, INITIAL_URL, NAME } = CONSTANTS;
+const { PREVIOUS, NEXT, INITIAL_URL, NAME, LOADING } = CONSTANTS;
 const { ABILITIES, HEIGHT, SPECIE, TYPE } = POKEMON_LABELS;
 const { GENERAL_MESSAGE } = FETCH_MESSAGES;
 
@@ -91,7 +91,9 @@ const Pokedex = () => {
       {
         title: ABILITIES,
         html: (e: any) => (
-          <span>{e.abilities.map((ability: any) => ability.ability.name)}</span>
+          <span>
+            {e.abilities.map((ability: any) => ability.ability.name + " ")}
+          </span>
         ),
       },
       {
@@ -155,7 +157,7 @@ const Pokedex = () => {
   return (
     <div className="pokedex__wrapper">
       {initialLoading ? (
-        <Loader />
+        <Loader>{LOADING}</Loader>
       ) : error ? (
         <p>{GENERAL_MESSAGE}</p>
       ) : (
