@@ -12,13 +12,27 @@ const Pokedex = () => {
     next: "",
     previous: "",
   });
-  const [pokemonData, setPokemonData] = useState<PokemonData>();
+  //const [pokemonData, setPokemonData] = useState<PokemonData[]>([]);
+  const [pokemonData, setPokemonData] = useState<
+    Array<{
+      name: string;
+      id: number;
+      abilities: PokemonAbilities[];
+      height: number;
+      species: {
+        name: string;
+      };
+      sprites: {
+        front_default: string;
+      };
+      type: PokemonTypes[];
+    }>
+  >([]);
+
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState({ name: "", url: "" });
-
-  console.log("selectedPokemon: ", selectedPokemon);
 
   type PokemonsTable = {
     name: string;
@@ -53,6 +67,8 @@ const Pokedex = () => {
   };
 
   const elements: PokemonsTable[] = pokemons;
+  // const pokemonDataElements: PokemonData[] = [ pokemonData ];
+  //const pokemonDataElements: PokemonData[] = pokemonData;
 
   const model: TableModel<PokemonsTable> = {
     columns: [
@@ -60,6 +76,36 @@ const Pokedex = () => {
         title: "Name",
         html: (e: any) => (
           <span onClick={() => setSelectedPokemon(e)}>{e.name}</span>
+        ),
+      },
+      // <img src="1.jpg"></img>,
+    ],
+  };
+
+  const pokemonModel: TableModel<PokemonData> = {
+    columns: [
+      {
+        title: "Name",
+        html: (e: any) => <span>{e.name}</span>,
+      },
+      {
+        title: "Abilities",
+        html: (e: any) => (
+          <span>{e.abilities.map((ability: any) => ability.ability.name)}</span>
+        ),
+      },
+      {
+        title: "Height",
+        html: (e: any) => <span>{e.height}</span>,
+      },
+      {
+        title: "Specie",
+        html: (e: any) => <span>{e.species.name}</span>,
+      },
+      {
+        title: "Type",
+        html: (e: any) => (
+          <span>{e.types.map((type: any) => type.type.name)}</span>
         ),
       },
     ],
@@ -85,7 +131,6 @@ const Pokedex = () => {
   const onGetPokemonsData = async (url: string) => {
     try {
       let poke = await getPokemonList(url);
-      console.log("poke: ", poke);
       setPokemons(poke.results);
       setURL({
         next: poke.next,
@@ -103,8 +148,7 @@ const Pokedex = () => {
   const onGetPokemonDescription = async (url: string) => {
     try {
       let pokeData = await getPokemonDescription(url);
-      console.log("pokeData: ", pokeData);
-      setPokemonData(pokeData);
+      setPokemonData((current) => [pokeData, ...current]);
     } catch (e) {
       console.log("could not fetch the pokemon description");
     }
@@ -120,14 +164,15 @@ const Pokedex = () => {
             "Loading pokemon..."
           ) : pokemonData ? (
             <div className="poke__card">
-              <p>{selectedPokemon.name}</p>
+              <Table model={pokemonModel} elements={pokemonData} />
+              {/* <p>{selectedPokemon.name}</p>
               <div className="poke__photo"></div>
               <div className="poke__data">
                 {pokemonData?.abilities.map((ability, index) => {
                   console.log("ability: ", ability);
                   return <p key={`ability-${index}`}>{ability.ability.name}</p>;
                 })}
-              </div>
+              </div> */}
             </div>
           ) : null}
 

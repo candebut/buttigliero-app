@@ -23,9 +23,9 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
     (sum, column) => sum + (column.width || 1),
     0
   );
-
+  console.log("isArray: ", Array.isArray(elements));
+  console.log("elements in table: ", elements);
   const widthOf = (c: TableColumn<T>) => ((c.width || 1) / sumWidth) * 100;
-
   return (
     <div className={styles.genericTableContainer}>
       <div className={styles.genericTableHeader}>
