@@ -5,12 +5,11 @@ import {
   POKEMON_LABELS,
 } from "../../constants/constants";
 import { getPokemonList, getPokemonDescription } from "./pokedexService";
-import { Button, Table } from "../../components";
+import { Button, Table, Loader } from "../../components";
 import { TableModel } from "../../components/Table/Table";
 
-const { PREVIOUS, NEXT, INITIAL_URL, NAME, LOADING } = CONSTANTS;
-const { ABILITIES, HEIGHT, SPECIE, TYPE, ERROR_MESSAGE, LOADING_MESSAGE } =
-  POKEMON_LABELS;
+const { PREVIOUS, NEXT, INITIAL_URL, NAME } = CONSTANTS;
+const { ABILITIES, HEIGHT, SPECIE, TYPE, ERROR_MESSAGE } = POKEMON_LABELS;
 const { GENERAL_MESSAGE } = FETCH_MESSAGES;
 
 const Pokedex = () => {
@@ -34,8 +33,6 @@ const Pokedex = () => {
       type: PokemonTypes[];
     }>
   >([]);
-
-  const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState({ name: "", url: "" });
 
@@ -141,7 +138,6 @@ const Pokedex = () => {
       console.log(GENERAL_MESSAGE);
     } finally {
       setInitialLoading(false);
-      setLoading(false);
     }
   };
 
@@ -157,12 +153,10 @@ const Pokedex = () => {
   return (
     <div className="pokedex__wrapper">
       {initialLoading ? (
-        LOADING
+        <Loader />
       ) : (
         <>
-          {loading ? (
-            LOADING_MESSAGE
-          ) : pokemonData ? (
+          {pokemonData ? (
             <div className="poke__card">
               <Table model={pokemonModel} elements={pokemonData} />
             </div>

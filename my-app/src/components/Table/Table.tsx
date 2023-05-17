@@ -28,8 +28,9 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
     <div className={styles.genericTableContainer}>
       <div className={styles.genericTableHeader}>
         <div className={styles.genericTableRow}>
-          {model.columns.map((c) => (
+          {model.columns.map((c, index) => (
             <div
+              key={`key-column-${index}`}
               className={styles.genericTableCell}
               style={{ width: `${widthOf(c)}%` }}
             >
@@ -39,12 +40,13 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
         </div>
       </div>
       <div className={styles.genericTableBody}>
-        {elements.map((e) => (
-          <div className={styles.genericTableRow}>
-            {model.columns.map((c) => (
+        {elements.map((e, index) => (
+          <div className={styles.genericTableRow} key={`key-element-${index}`}>
+            {model.columns.map((c, index) => (
               <div
                 className={styles.genericTableCell}
                 style={{ width: `${widthOf(c)}%` }}
+                key={`key-element-column-${index}`}
               >
                 {c.html(e)}
               </div>
