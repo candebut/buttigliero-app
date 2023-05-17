@@ -12,21 +12,49 @@ const Pokedex = () => {
     next: "",
     previous: "",
   });
+  const [pokemonData, setPokemonData] = useState<PokemonData>();
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [selectedPokemon, setSelectedPokemon] = useState({ name: "", url: "" });
 
   console.log("selectedPokemon: ", selectedPokemon);
 
-  type MyElement = {
+  type PokemonsTable = {
     name: string;
     url: string;
   };
 
-  const elements: MyElement[] = pokemons;
+  type PokemonAbilities = {
+    ability: {
+      name: string;
+    };
+  };
 
-  const model: TableModel<MyElement> = {
+  type PokemonTypes = {
+    type: {
+      name: string;
+      url: string;
+    };
+  };
+
+  type PokemonData = {
+    name: string;
+    id: number;
+    abilities: PokemonAbilities[];
+    height: number;
+    species: {
+      name: string;
+    };
+    sprites: {
+      front_default: string;
+    };
+    type: PokemonTypes[];
+  };
+
+  const elements: PokemonsTable[] = pokemons;
+
+  const model: TableModel<PokemonsTable> = {
     columns: [
       {
         title: "Name",
@@ -50,6 +78,10 @@ const Pokedex = () => {
     onGetPokemonsData(INITIAL_URL);
   }, []);
 
+  useEffect(() => {
+    if (selectedPokemon?.url) onGetPokemonDescription(selectedPokemon?.url);
+  }, [selectedPokemon]);
+
   const onGetPokemonsData = async (url: string) => {
     try {
       let poke = await getPokemonList(url);
@@ -68,6 +100,16 @@ const Pokedex = () => {
     }
   };
 
+  const onGetPokemonDescription = async (url: string) => {
+    try {
+      let pokeData = await getPokemonDescription(url);
+      console.log("pokeData: ", pokeData);
+      setPokemonData(pokeData);
+    } catch (e) {
+      console.log("could not fetch the pokemon description");
+    }
+  };
+
   return (
     <div className="pokedex__wrapper">
       {initialLoading ? (
@@ -76,19 +118,21 @@ const Pokedex = () => {
         <>
           {loading ? (
             "Loading pokemon..."
-          ) : selectedPokemon ? (
+          ) : pokemonData ? (
             <div className="poke__card">
+              <p>{selectedPokemon.name}</p>
               <div className="poke__photo"></div>
-              <div className="poke__data"></div>
+              <div className="poke__data">
+                {pokemonData?.abilities.map((ability, index) => {
+                  console.log("ability: ", ability);
+                  return <p key={`ability-${index}`}>{ability.ability.name}</p>;
+                })}
+              </div>
             </div>
           ) : null}
 
           <div className="poke__table">
             <Table model={model} elements={elements}></Table>
-            {/* <Table headers={["name", "id"]} data={pokemons}></Table> */}
-            {/* when clicking in element, setSelectedPokemon 
-            setLoading to true until the pokemon info is loaded
-            */}
           </div>
           <div className="poke__buttons">
             <Button
