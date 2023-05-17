@@ -11,16 +11,25 @@
   cursor: pointer;
   box-sizing: border-box;
   transition: all 200ms;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 21px;
   padding: 7px 12px;
 }
 .primary {
-  color: black;
+  color: #333;
   background-color: aquamarine;
+}
+
+.primary:hover {
+  background-color: #333;
+  color: aquamarine;
 }
 
 .secundary {
   color: aquamarine;
-  background-color: black;
+  background-color: #333;
+}
+.secundary:hover {
+  background-color: aquamarine;
+  color: #333;
 }

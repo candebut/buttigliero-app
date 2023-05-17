@@ -170,14 +170,16 @@ const Pokedex = () => {
             <Table model={model} elements={elements}></Table>
           </div>
           <div className="poke__buttons">
-            <Button
-              variant="primary"
-              onClick={() => handleClick(PREVIOUS)}
-              label={PREVIOUS}
-            />
+            {url.previous && (
+              <Button
+                variant="secundary"
+                onClick={() => handleClick(PREVIOUS)}
+                label={PREVIOUS}
+              />
+            )}
 
             <Button
-              variant="secundary"
+              variant="primary"
               onClick={() => handleClick(NEXT)}
               label={NEXT}
             />
