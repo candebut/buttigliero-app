@@ -178,11 +178,13 @@ const Pokedex = () => {
               />
             )}
 
-            <Button
-              variant="primary"
-              onClick={() => handleClick(NEXT)}
-              label={NEXT}
-            />
+            {url.next && (
+              <Button
+                variant="primary"
+                onClick={() => handleClick(NEXT)}
+                label={NEXT}
+              />
+            )}
           </div>
         </>
       )}
