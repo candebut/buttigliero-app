@@ -1,39 +1,59 @@
-import React from "react";
+import styles from "./generic-table.module.css";
 
-interface IObjectKeys {
-  [key: string]: string | number | undefined;
-}
+export type TableElement = {};
 
-export interface TableProps {
-  headers: Array<string>;
-  data: Array<DataContent>;
-}
+export type TableColumn<T extends TableElement> = {
+  title: string;
+  html: (e: T) => JSX.Element;
+  width?: number;
+};
 
-export interface DataContent extends IObjectKeys {
-  text: string;
-  id: number;
-}
+export type TableModel<T extends TableElement> = {
+  columns: TableColumn<T>[];
+};
 
-const Table = ({ headers, data }: TableProps) => {
-  console.log("data in table: ", data);
+export type Props<T extends TableElement> = {
+  model: TableModel<T>;
+  elements: T[];
+};
+
+const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
+  const sumWidth = model.columns.reduce(
+    (sum, column) => sum + (column.width || 1),
+    0
+  );
+
+  const widthOf = (c: TableColumn<T>) => ((c.width || 1) / sumWidth) * 100;
+
   return (
-    <>
-      <table className="table">
-        <tbody>
-          {data.map((d, index) => (
-            <tr key={`tr-${index}-${d.id}`}>
-              <>
-                {Object.keys(headers).map((header, index) => {
-                  <td key={`td-${index}`}>
-                    <span>{d[header]}</span>
-                  </td>;
-                })}
-              </>
-            </tr>
+    <div className={styles.genericTableContainer}>
+      <div className={styles.genericTableHeader}>
+        <div className={styles.genericTableRow}>
+          {model.columns.map((c) => (
+            <div
+              className={styles.genericTableCell}
+              style={{ width: `${widthOf(c)}%` }}
+            >
+              <span className={styles.genericTableCellText}>{c.title}</span>
+            </div>
           ))}
-        </tbody>
-      </table>
-    </>
+        </div>
+      </div>
+      <div className={styles.genericTableBody}>
+        {elements.map((e) => (
+          <div className={styles.genericTableRow}>
+            {model.columns.map((c) => (
+              <div
+                className={styles.genericTableCell}
+                style={{ width: `${widthOf(c)}%` }}
+              >
+                {c.html(e)}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

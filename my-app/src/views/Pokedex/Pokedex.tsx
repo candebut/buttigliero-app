@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { constants } from "../../constants/constants";
 import { getPokemonList, getPokemonDescription } from "./pokedexService";
 import { Button, Table } from "../../components";
+import { TableModel } from "../../components/Table/Table";
 
 const { PREVIOUS, NEXT, INITIAL_URL } = constants;
 
@@ -15,6 +16,22 @@ const Pokedex = () => {
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+  type MyElement = {
+    name: string;
+    url: string;
+  };
+
+  const elements: MyElement[] = pokemons;
+
+  const model: TableModel<MyElement> = {
+    columns: [
+      {
+        title: "Name",
+        html: (e: any) => <span>{e.name}</span>,
+      },
+    ],
+  };
 
   const handleClick = (type: string) => {
     switch (type) {
@@ -63,7 +80,8 @@ const Pokedex = () => {
           ) : null}
 
           <div className="poke__table">
-            <Table headers={["name", "id"]} data={pokemons}></Table>
+            <Table model={model} elements={elements}></Table>
+            {/* <Table headers={["name", "id"]} data={pokemons}></Table> */}
             {/* when clicking in element, setSelectedPokemon 
             setLoading to true until the pokemon info is loaded
             */}
