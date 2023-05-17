@@ -35,6 +35,7 @@ const Pokedex = () => {
   >([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState({ name: "", url: "" });
+  const [error, setError] = useState(false);
 
   type PokemonsTable = {
     name: string;
@@ -135,7 +136,7 @@ const Pokedex = () => {
         previous: poke.previous,
       });
     } catch (e) {
-      console.log(GENERAL_MESSAGE);
+      setError(true);
     } finally {
       setInitialLoading(false);
     }
@@ -146,7 +147,7 @@ const Pokedex = () => {
       let pokeData = await getPokemonDescription(url);
       setPokemonData((current) => [pokeData, ...current]);
     } catch (e) {
-      console.log(ERROR_MESSAGE);
+      setError(true);
     }
   };
 
@@ -154,9 +155,11 @@ const Pokedex = () => {
     <div className="pokedex__wrapper">
       {initialLoading ? (
         <Loader />
+      ) : error ? (
+        <p>{ERROR_MESSAGE}</p>
       ) : (
         <>
-          {pokemonData ? (
+          {pokemonData && selectedPokemon.name ? (
             <div className="poke__card">
               <Table model={pokemonModel} elements={pokemonData} />
             </div>
