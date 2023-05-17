@@ -7,6 +7,7 @@ import {
 import { getPokemonList, getPokemonDescription } from "./pokedexService";
 import { Button, Table, Loader } from "../../components";
 import { TableModel } from "../../components/Table/Table";
+import "./pokedex.scss";
 
 const { PREVIOUS, NEXT, INITIAL_URL, NAME } = CONSTANTS;
 const { ABILITIES, HEIGHT, SPECIE, TYPE } = POKEMON_LABELS;

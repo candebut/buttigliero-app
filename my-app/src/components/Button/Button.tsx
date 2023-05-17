@@ -1,5 +1,5 @@
 import React from "react";
-// import "../../styles/scss/_button.scss";
+import "./button.scss";
 
 export interface ButtonProps {
   label: string;
@@ -8,14 +8,9 @@ export interface ButtonProps {
 }
 
 const Button = ({ label, variant = "primary", onClick }: ButtonProps) => {
-  //   const onClick = () => {
-  //     if (onClick) {
-  //       onClick();
-  //     }
-  //   };
   return (
-    <div className="button-wrapper">
-      <button onClick={onClick} className={`button-component__${variant}`}>
+    <div className="buttonWrapper">
+      <button onClick={onClick} className={`button-component ${variant}`}>
         {label}
       </button>
     </div>
