@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { constants } from "../../constants/constants";
+import { useState, useEffect } from "react";
+import {
+  CONSTANTS,
+  FETCH_MESSAGES,
+  POKEMON_LABELS,
+} from "../../constants/constants";
 import { getPokemonList, getPokemonDescription } from "./pokedexService";
 import { Button, Table } from "../../components";
 import { TableModel } from "../../components/Table/Table";
 
-const { PREVIOUS, NEXT, INITIAL_URL } = constants;
+const { PREVIOUS, NEXT, INITIAL_URL, NAME, LOADING } = CONSTANTS;
+const { ABILITIES, HEIGHT, SPECIE, TYPE, ERROR_MESSAGE, LOADING_MESSAGE } =
+  POKEMON_LABELS;
+const { GENERAL_MESSAGE } = FETCH_MESSAGES;
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -12,7 +19,6 @@ const Pokedex = () => {
     next: "",
     previous: "",
   });
-  //const [pokemonData, setPokemonData] = useState<PokemonData[]>([]);
   const [pokemonData, setPokemonData] = useState<
     Array<{
       name: string;
@@ -29,7 +35,6 @@ const Pokedex = () => {
     }>
   >([]);
 
-  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState({ name: "", url: "" });
@@ -67,43 +72,39 @@ const Pokedex = () => {
   };
 
   const elements: PokemonsTable[] = pokemons;
-  // const pokemonDataElements: PokemonData[] = [ pokemonData ];
-  //const pokemonDataElements: PokemonData[] = pokemonData;
-
   const model: TableModel<PokemonsTable> = {
     columns: [
       {
-        title: "Name",
+        title: NAME,
         html: (e: any) => (
           <span onClick={() => setSelectedPokemon(e)}>{e.name}</span>
         ),
       },
-      // <img src="1.jpg"></img>,
     ],
   };
 
   const pokemonModel: TableModel<PokemonData> = {
     columns: [
       {
-        title: "Name",
+        title: NAME,
         html: (e: any) => <span>{e.name}</span>,
       },
       {
-        title: "Abilities",
+        title: ABILITIES,
         html: (e: any) => (
           <span>{e.abilities.map((ability: any) => ability.ability.name)}</span>
         ),
       },
       {
-        title: "Height",
+        title: HEIGHT,
         html: (e: any) => <span>{e.height}</span>,
       },
       {
-        title: "Specie",
+        title: SPECIE,
         html: (e: any) => <span>{e.species.name}</span>,
       },
       {
-        title: "Type",
+        title: TYPE,
         html: (e: any) => (
           <span>{e.types.map((type: any) => type.type.name)}</span>
         ),
@@ -136,9 +137,8 @@ const Pokedex = () => {
         next: poke.next,
         previous: poke.previous,
       });
-      setCount(poke.count);
     } catch (e) {
-      console.log("could not fetch the data");
+      console.log(GENERAL_MESSAGE);
     } finally {
       setInitialLoading(false);
       setLoading(false);
@@ -150,29 +150,21 @@ const Pokedex = () => {
       let pokeData = await getPokemonDescription(url);
       setPokemonData((current) => [pokeData, ...current]);
     } catch (e) {
-      console.log("could not fetch the pokemon description");
+      console.log(ERROR_MESSAGE);
     }
   };
 
   return (
     <div className="pokedex__wrapper">
       {initialLoading ? (
-        "Loading..."
+        LOADING
       ) : (
         <>
           {loading ? (
-            "Loading pokemon..."
+            LOADING_MESSAGE
           ) : pokemonData ? (
             <div className="poke__card">
               <Table model={pokemonModel} elements={pokemonData} />
-              {/* <p>{selectedPokemon.name}</p>
-              <div className="poke__photo"></div>
-              <div className="poke__data">
-                {pokemonData?.abilities.map((ability, index) => {
-                  console.log("ability: ", ability);
-                  return <p key={`ability-${index}`}>{ability.ability.name}</p>;
-                })}
-              </div> */}
             </div>
           ) : null}
 
@@ -182,13 +174,13 @@ const Pokedex = () => {
           <div className="poke__buttons">
             <Button
               variant="primary"
-              onClick={(e: any) => handleClick(PREVIOUS)}
+              onClick={() => handleClick(PREVIOUS)}
               label={PREVIOUS}
             />
 
             <Button
               variant="secundary"
-              onClick={(e: any) => handleClick(NEXT)}
+              onClick={() => handleClick(NEXT)}
               label={NEXT}
             />
           </div>
