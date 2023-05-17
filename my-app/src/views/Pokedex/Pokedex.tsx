@@ -107,7 +107,7 @@ const Pokedex = () => {
       {
         title: TYPE,
         html: (e: any) => (
-          <span>{e.types.map((type: any) => type.type.name)}</span>
+          <span>{e.types.map((type: any) => type.type.name + " ")}</span>
         ),
       },
     ],

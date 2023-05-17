@@ -1,10 +1,8 @@
-//import styles from "./generic-table.module.css";
 import "./styles.scss";
-// import "../scss/FileName.scss";
 
 export type TableElement = {};
 
-export type TableColumn<T extends TableElement> = {
+export type Column<T extends TableElement> = {
   title: string;
   html: (e: T) => JSX.Element;
   width?: number;
@@ -12,7 +10,7 @@ export type TableColumn<T extends TableElement> = {
 };
 
 export type TableModel<T extends TableElement> = {
-  columns: TableColumn<T>[];
+  columns: Column<T>[];
 };
 
 export type Props<T extends TableElement> = {
@@ -25,7 +23,7 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
     (sum, column) => sum + (column.width || 1),
     0
   );
-  const widthOf = (c: TableColumn<T>) => ((c.width || 1) / sumWidth) * 100;
+  const widthOf = (c: Column<T>) => ((c.width || 1) / sumWidth) * 100;
   return (
     <div className="genericTableContainer">
       <div className="genericTableHeader">
