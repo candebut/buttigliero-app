@@ -13,7 +13,7 @@ const model = {
   columns: [
     {
       title: "Name",
-      html: (e) => (
+      html: (e: any) => (
         <span>
           {e.name} {e.lastName}
         </span>
@@ -21,22 +21,21 @@ const model = {
     },
     {
       title: "name",
-      html: (e) => <span>{e.name}</span>,
+      html: (e: any) => <span>{e.name}</span>,
     },
     {
       title: "Lastname",
-      html: (e) => <span>{e.lastName}</span>,
+      html: (e: any) => <span>{e.lastName}</span>,
     },
     {
       title: "years",
-      html: (e) => <span>{e.years}</span>,
+      html: (e: any) => <span>{e.years}</span>,
     },
   ],
 };
 
 describe("<Table />", () => {
   it("renders", () => {
-    // see: https://on.cypress.io/mounting-react
     cy.mount(<Table elements={elements} model={model} />);
   });
 });

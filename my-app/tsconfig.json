@@ -26,7 +26,6 @@
     "src",
     "node_modules/cypress",
     "**/*.ts"
-    //["**/*.ts"]
   ],
   "exclude": [
     "tests/e2e",
