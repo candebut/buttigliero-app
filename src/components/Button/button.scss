@@ -1,3 +1,6 @@
+$base-color: aquamarine;
+$dark-color: #333;
+
 .button-component {
   background: none;
   border: none;
@@ -16,20 +19,20 @@
   padding: 7px 12px;
 }
 .primary {
-  color: #333;
-  background-color: aquamarine;
+  color: $dark-color;
+  background-color: $base-color;
 }
 
 .primary:hover {
-  background-color: #333;
-  color: aquamarine;
+  background-color: $dark-color;
+  color: $base-color;
 }
 
 .secundary {
-  color: aquamarine;
-  background-color: #333;
+  color: $base-color;
+  background-color: $dark-color;
 }
 .secundary:hover {
-  background-color: aquamarine;
-  color: #333;
+  background-color: $base-color;
+  color: $dark-color;
 }

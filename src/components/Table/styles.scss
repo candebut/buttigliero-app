@@ -1,3 +1,6 @@
+$base-color: aquamarine;
+$dark-color: #333;
+
 .genericTableContainer {
   margin: 30px 10%;
   display: flex;
@@ -12,7 +15,7 @@
 .genericTableRow {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid $dark-color;
   text-transform: capitalize;
 }
 
@@ -21,8 +24,8 @@
 }
 
 .genericTableHeader > .genericTableRow {
-  border-bottom: 1px solid #555;
-  background-color: aquamarine;
+  border-bottom: 1px solid $dark-color;
+  background-color: $base-color;
 }
 
 .genericTableCell {
@@ -32,6 +35,6 @@
 }
 
 .genericTableCell:hover {
-  background-color: #333;
+  background-color: $dark-color;
   color: white;
 }
