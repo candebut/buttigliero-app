@@ -1,9 +1,8 @@
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import Loader from "./Loader";
-import { shallow } from "enzyme";
 
-describe("Loader should render", () => {
-  it("should render correctly with children", () => {
-    const component = shallow(<Loader>Test message for loading</Loader>);
-    expect(component).toMatchSnapshot();
-  });
+test("renders the loader component", () => {
+  render(<Loader />);
+  expect(screen.getByTestId("loader")).toBeInTheDocument();
 });

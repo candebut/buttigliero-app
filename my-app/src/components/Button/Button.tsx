@@ -9,7 +9,7 @@ export interface ButtonProps {
 
 const Button = ({ label, variant = "primary", onClick }: ButtonProps) => {
   return (
-    <div className="buttonWrapper">
+    <div className="buttonWrapper" data-testid="button-component">
       <button onClick={onClick} className={`button-component ${variant}`}>
         {label}
       </button>

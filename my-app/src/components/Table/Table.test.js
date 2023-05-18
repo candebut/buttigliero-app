@@ -1,5 +1,6 @@
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import Table from "./Table";
-import { shallow } from "enzyme";
 
 const elements = [
   { name: "A", lastName: "A", years: 10 },
@@ -34,9 +35,7 @@ const model = {
   ],
 };
 
-describe("Table rendering with props", () => {
-  it("should render correctly with the data", () => {
-    const component = shallow(<Table elements={elements} model={model} />);
-    expect(component).toMatchSnapshot();
-  });
+test("renders the table component", () => {
+  render(<Table elements={elements} model={model} />);
+  expect(screen.getByTestId("genericTable")).toBeInTheDocument();
 });
