@@ -163,13 +163,15 @@ const Pokedex = () => {
   return (
     <div className="pokedex__wrapper" data-testid="pokedex-component">
       {initialLoading ? (
-        <Loader>{LOADING}</Loader>
+        <Loader data-testid="loader" data-cy="loader">
+          {LOADING}
+        </Loader>
       ) : error ? (
         <p data-testid="error-message">{GENERAL_MESSAGE}</p>
       ) : (
         <>
           {pokemonData && selectedPokemon.name ? (
-            <div className="poke__card">
+            <div className="poke__card" data-testid="pokemons-list">
               <Table model={pokemonModel} elements={pokemonData} />
             </div>
           ) : null}

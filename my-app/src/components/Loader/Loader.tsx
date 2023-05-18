@@ -6,7 +6,7 @@ type Props = {
 
 function Loader({ children }: Props) {
   return (
-    <div className="loaderWrapper" data-testid="loader">
+    <div className="loaderWrapper" data-testid="loader" data-cy="loader">
       <div className="loaderComponent">{children}</div>
     </div>
   );

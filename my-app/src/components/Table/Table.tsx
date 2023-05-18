@@ -25,7 +25,11 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
   );
   const widthOf = (c: Column<T>) => ((c.width || 1) / sumWidth) * 100;
   return (
-    <div className="genericTableContainer" data-testid="genericTable">
+    <div
+      className="genericTableContainer"
+      data-testid="genericTable"
+      data-cy="genericTable"
+    >
       <div className="genericTableHeader">
         <div className="genericTableRow">
           {model.columns.map((c, index) => (
