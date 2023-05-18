@@ -45,9 +45,14 @@ const Table = <T extends TableElement>({ model, elements }: Props<T>) => {
       </div>
       <div className="genericTableBody">
         {elements.map((e, index) => (
-          <div className="genericTableRow" key={`key-element-${index}`}>
+          <div
+            className="genericTableRow"
+            key={`key-element-${index}`}
+            data-cy="genericTableRow"
+          >
             {model.columns.map((c, index) => (
               <div
+                data-cy="genericTableCell"
                 className="genericTableCell"
                 style={{ width: `${widthOf(c)}%` }}
                 key={`key-element-column-${index}`}

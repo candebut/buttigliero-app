@@ -1,16 +1,5 @@
 /// <reference types="cypress" />
 
-// Welcome to Cypress!
-//
-// This spec file contains a variety of sample tests
-// for a todo list app that are designed to demonstrate
-// the power of writing tests in Cypress.
-//
-// To learn more about how Cypress works and
-// what makes it such an awesome testing tool,
-// please read our getting started guide:
-// https://on.cypress.io/introduction-to-cypress
-
 describe("pokedex app", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/");
@@ -54,6 +43,12 @@ describe("pokedex app", () => {
       sendResponse();
       cy.get('[data-cy="button-component"]').should("have.length", 2);
     });
+  });
+
+  it("when clicking on pokemon list, a table should be rendered with the selected pokemons", () => {
+    cy.get('[data-cy="genericTableRow"').should("have.length", 20);
+    cy.get('[data-cy="genericTableRow"').first().click();
+    cy.get('[data-cy="genericTable"').should("have.length", 2);
   });
 
   //   it("displays table with pokemons and the Next button", () => {
