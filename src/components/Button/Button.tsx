@@ -6,7 +6,6 @@ export interface ButtonProps {
   variant: string;
   onClick?: React.MouseEventHandler;
 }
-
 const Button = ({ label, variant = "primary", onClick }: ButtonProps) => {
   return (
     <div
