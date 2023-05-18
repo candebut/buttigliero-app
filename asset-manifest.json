@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/buttigliero-app/static/css/main.48b510ed.css",
+    "main.js": "/buttigliero-app/static/js/main.aa3cfeba.js",
+    "static/js/787.cdf9785b.chunk.js": "/buttigliero-app/static/js/787.cdf9785b.chunk.js",
+    "index.html": "/buttigliero-app/index.html",
+    "main.48b510ed.css.map": "/buttigliero-app/static/css/main.48b510ed.css.map",
+    "main.aa3cfeba.js.map": "/buttigliero-app/static/js/main.aa3cfeba.js.map",
+    "787.cdf9785b.chunk.js.map": "/buttigliero-app/static/js/787.cdf9785b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48b510ed.css",
+    "static/js/main.aa3cfeba.js"
+  ]
+}
